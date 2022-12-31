@@ -14,6 +14,5 @@ let package = Package(
     targets: [
         .target(name: "RowTypeFramework", dependencies: []),
         .target(name: "RowTypeTableView", dependencies: ["RowTypeFramework"]),
-        .testTarget(name: "RowTypeFrameworkTests", dependencies: ["RowTypeFramework"]),
     ]
 )
