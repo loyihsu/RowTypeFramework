@@ -33,6 +33,7 @@ enum SomeRowType: RowType {
 
 ```swift
 import RowTypeTableView
+
 extension SomeRowType: UITableViewPresentable {
     var CellType: UITableViewRowCell.Type {
         switch self {
@@ -67,6 +68,8 @@ class SummaryCell: UITableViewCell, UITableViewRowCell {
         }
     }
     
+    // ... UITableViewCell setup omitted
+    
     func update(to model: AnyRowModelType) {
         label.text = "Summary Row: \(model.forced(to: RowModelType.self).id)"
     }
@@ -80,7 +83,7 @@ class SummaryCell: UITableViewCell, UITableViewRowCell {
 `RowTypeTableViewController` is a base implementation which embeds a full screen `UITableView` that comes in the `RowTypeTableView` layer. You can subclass it to define your behaviour but the base usage is to just create a `RowTypeTableViewController` with rows:
 
 ```swift
-@objc func openWIPView() {
+func navigateToView() {
     let viewModel = SomeViewModel()
     let viewController = RowTypeTableViewController(rows: viewModel.rows)
     viewModel.rowsDidUpdate = { [weak viewController] rows in
@@ -91,3 +94,7 @@ class SummaryCell: UITableViewCell, UITableViewRowCell {
 ```
 
 Setting to the rows in the view controller will by default trigger the table view to reload data. You can define your custom refresh logic if you subclass `RowTypeTableViewController` and override the `rowsDidChange(_:)` method.
+
+## Licence
+
+[MIT](https://github.com/loyihsu/RowTypeFramework/blob/main/LICENSE)    
