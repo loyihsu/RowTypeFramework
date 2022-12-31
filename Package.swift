@@ -8,11 +8,13 @@ let package = Package(
     products: [
         .library(name: "RowTypeFramework", targets: ["RowTypeFramework"]),
         .library(name: "RowTypeTableView", targets: ["RowTypeFramework", "RowTypeTableView"]),
+        .library(name: "RowTypeSwiftUI", targets: ["RowTypeFramework", "RowTypeSwiftUI"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(name: "RowTypeFramework", dependencies: []),
         .target(name: "RowTypeTableView", dependencies: ["RowTypeFramework"]),
+        .target(name: "RowTypeSwiftUI", dependencies: ["RowTypeFramework"]),
     ]
 )

@@ -12,15 +12,3 @@ import UIKit
 public protocol UITableViewRowCell: UITableViewCell {
     var model: AnyRowModelType! { get set }
 }
-
-public struct AnyRowModelType {
-    var wrappedItem: any RowModelType
-
-    public func casted<T>(to _: T.Type) -> T? {
-        return wrappedItem as? T
-    }
-
-    public func forced<T>(to type: T.Type) -> T {
-        return casted(to: type)!
-    }
-}
