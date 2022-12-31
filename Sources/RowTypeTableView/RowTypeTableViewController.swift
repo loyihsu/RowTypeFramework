@@ -8,16 +8,15 @@
 import UIKit
 
 /// The main view controller implementation that embeds a full screen table view. When using this type, you will need to initialise it with `init(rows:)`, providing the rows in `UITableViewPresentable` format.
-/// To update the table view, set `rows` directly would trigger the table view to refresh, reload data by default. Write to the rowsDidChange method if you want to define custom behaviours for refresh.
-public class RowTypeTableViewController: UIViewController {
-    private var tableView: UITableView = {
+/// To update the table view, set `rows` directly would trigger the table view to refresh, reload data by default. Override the rowsDidChange method if you want to define custom behaviours for refresh.
+open class RowTypeTableViewController: UIViewController {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
         return tableView
     }()
-
-    public var rowsDidChange: (UITableView) -> Void = { tableView in
-        tableView.reloadData()
-    }
 
     public var rows: [UITableViewPresentable] = [] {
         didSet {
@@ -30,7 +29,7 @@ public class RowTypeTableViewController: UIViewController {
         self.rows = rows
     }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         setupTableView()
     }
 
@@ -53,6 +52,10 @@ public class RowTypeTableViewController: UIViewController {
                 tableView.register($0, forCellReuseIdentifier: "\($0.self)")
             }
     }
+
+    open func rowsDidChange(_ tableView: UITableView) {
+        tableView.reloadData()
+    }
 }
 
 extension RowTypeTableViewController: UITableViewDelegate, UITableViewDataSource {
@@ -69,7 +72,7 @@ extension RowTypeTableViewController: UITableViewDelegate, UITableViewDataSource
         ) as? UITableViewRowCell else {
             return UITableViewCell()
         }
-        cell.model = row.model
+        cell.model = AnyRowModelType(wrapped: row.model)
         return cell
     }
 }
