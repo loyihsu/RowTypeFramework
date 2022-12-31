@@ -76,7 +76,7 @@ class SummaryCell: UITableViewCell, UITableViewRowCell {
 }
 ```
 
-`AnyRowType` comes with two helper methods, `casted(to:)` will optional cast your model to the type you specify, while `.forced(to:)` will force unwrapped the cast mentioned above. 
+`AnyRowType` comes with two helper methods, `casted(to:)` will optional cast your model to the type you specify, while `.forced(to:)` will force unwrap the optional cast. 
 
 ### `RowTypeTableViewController`
 
