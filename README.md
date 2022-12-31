@@ -110,6 +110,74 @@ func navigateToView() {
 
 Setting to the rows in the view controller will by default trigger the table view to reload data. You can define your custom refresh logic if you subclass `RowTypeTableViewController` and override the `rowsDidChange(_:)` method.
 
+## RowTypeSwiftUI layer
+
+RowTypeFramework also comes with a base implementation for SwiftUI.
+
+The core (`RowType`) is shared across the framework, to use SwiftUI implementation, you would need to conform it to the `RowTypeListPresentable` protocol.
+
+```swift
+extension SomeRowType: RowTypeListPresentable {
+    var ViewType: any ViewWithModel.Type {
+        switch self {
+        case .summary:
+            return SummaryView.self
+        case .entry:
+            return EntryView.self
+        }
+    }
+}
+```
+
+Each of your view will need to conform to the `ViewWithModel` protocol, a base implementation can be like:
+
+```swift
+// SummaryCellModel renamed to SummaryViewModel here, thus you will need to register this type name as model in `RowType`.
+struct SummaryViewModel: RowModelType {
+    let id: UUID
+}
+
+struct SummaryView: ViewWithModel {
+    typealias ViewModelType = SummaryViewModel
+    var model: AnyRowModelType
+
+    init(model: AnyRowModelType) {
+        self.model = model
+    }
+
+    var body: some View {
+        VStack {
+            Text("Summary Cell")
+            Text(model.forced(to: ViewModelType.self).id.uuidString)
+        }
+        .listRowSeparator(.hidden)
+    }
+}
+
+```
+
+The base idea is the same as the UITableView implementation.
+
+Finally, to present it onto the screen, pass the row types as a `Identified` wrapped binding to `RowTypeListView`. 
+
+```swift
+struct ContentView: View {
+    @State var rows: [Identified<any RowTypeListPresentable>] = [
+        SomeRowType.summary(id: UUID()),
+        SomeRowType.entry(id: UUID()),
+        SomeRowType.entry(id: UUID()),
+        SomeRowType.entry(id: UUID()),
+        SomeRowType.entry(id: UUID()),
+    ].map {
+        Identified(wrappedItem: $0)
+    }
+
+    var body: some View {
+        RowTypeListView(rows: $rows)
+            .listStyle(.plain)
+    }
+```
+
 ## Licence
 
 [MIT](https://github.com/loyihsu/RowTypeFramework/blob/main/LICENSE)    
