@@ -68,7 +68,6 @@ An example structure would be:
 
 ```swift
 import RowTypeTableView
-import UIKit
 
 struct SummaryCellModel: RowModelType {
     let id: UUID
@@ -117,6 +116,8 @@ RowTypeFramework also comes with a base implementation for SwiftUI.
 The core (`RowType`) is shared across the framework, to use SwiftUI implementation, you would need to conform it to the `RowTypeListPresentable` protocol.
 
 ```swift
+import RowTypeSwiftUI
+
 extension SomeRowType: RowTypeListPresentable {
     var ViewType: any ViewWithModel.Type {
         switch self {
@@ -132,6 +133,8 @@ extension SomeRowType: RowTypeListPresentable {
 Each of your view will need to conform to the `ViewWithModel` protocol, a base implementation can be like:
 
 ```swift
+import RowTypeSwiftUI
+
 // SummaryCellModel renamed to SummaryViewModel here, thus you will need to register this type name as model in `RowType`.
 struct SummaryViewModel: RowModelType {
     let id: UUID
