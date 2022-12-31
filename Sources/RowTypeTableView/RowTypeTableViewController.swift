@@ -64,8 +64,7 @@ extension RowTypeTableViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let index = indexPath.row
-        let row = rows[index]
+        let row = rows[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "\(row.CellType.self)",
             for: indexPath
@@ -74,5 +73,10 @@ extension RowTypeTableViewController: UITableViewDelegate, UITableViewDataSource
         }
         cell.model = AnyRowModelType(wrappedItem: row.model)
         return cell
+    }
+
+    public func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = rows[indexPath.row]
+        row.didSelect()
     }
 }
