@@ -72,7 +72,7 @@ extension RowTypeTableViewController: UITableViewDelegate, UITableViewDataSource
         ) as? UITableViewRowCell else {
             return UITableViewCell()
         }
-        cell.model = AnyRowModelType(wrapped: row.model)
+        cell.model = AnyRowModelType(wrappedItem: row.model)
         return cell
     }
 }

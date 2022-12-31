@@ -14,10 +14,10 @@ public protocol UITableViewRowCell: UITableViewCell {
 }
 
 public struct AnyRowModelType {
-    var wrapped: any RowModelType
+    var wrappedItem: any RowModelType
 
     public func casted<T>(to _: T.Type) -> T? {
-        return wrapped as? T
+        return wrappedItem as? T
     }
 
     public func forced<T>(to type: T.Type) -> T {
