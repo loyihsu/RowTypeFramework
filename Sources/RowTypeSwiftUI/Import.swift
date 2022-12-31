@@ -6,3 +6,4 @@
 //
 
 @_exported import RowTypeFramework
+@_exported import SwiftUI

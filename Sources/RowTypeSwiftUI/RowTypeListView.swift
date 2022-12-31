@@ -6,7 +6,6 @@
 //
 
 import RowTypeFramework
-import SwiftUI
 
 @available(iOS 13.0, *)
 public struct RowTypeListView: View {
