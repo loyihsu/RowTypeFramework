@@ -67,7 +67,6 @@ extension SomeRowType: UITableViewPresentable {
 An example structure would be:
 
 ```swift
-import RowTypeFramework
 import RowTypeTableView
 import UIKit
 
