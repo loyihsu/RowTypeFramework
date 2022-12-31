@@ -1,6 +1,6 @@
 //
 //  ViewWithModel.swift
-//  
+//  RowTypeSwiftUI
 //
 //  Created by Yu-Sung Loyi Hsu on 2023/1/1.
 //
