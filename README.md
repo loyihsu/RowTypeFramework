@@ -25,6 +25,22 @@ enum SomeRowType: RowType {
 }
 ```
 
+Selection events can be defined by a `didSelect` method, like:
+
+```swift
+enum SomeRowType: RowType {
+    // ... identical setup as above
+    func didSelect() {
+        switch self {
+        case let .entry(id):
+            print("entry row with id \(id) is selected")
+        case let .summary(id):
+            print("summary row with id \(id) is selected")
+        }
+    }
+}
+```
+
 ## RowTypeTableView Layer
 
 `RowTypeFramework` comes with implementations to show your `RowType` inside a `UITableView`.
