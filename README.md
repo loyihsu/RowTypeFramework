@@ -7,7 +7,7 @@ Basically, `RowTypeFramework` consists of two protocols, `RowType` and `RowModel
 
 For example:
 
-```swift=
+```swift
 import RowTypeFramework
 
 enum SomeRowType: RowType {
@@ -31,7 +31,7 @@ enum SomeRowType: RowType {
 
 - Your RowType will need to conform to the `UITableViewPresentable` protocol.
 
-```swift=
+```swift
 import RowTypeTableView
 extension SomeRowType: UITableViewPresentable {
     var CellType: UITableViewRowCell.Type {
@@ -49,7 +49,7 @@ extension SomeRowType: UITableViewPresentable {
 
 An example structure would be:
 
-```swift=
+```swift
 import RowTypeFramework
 import RowTypeTableView
 import UIKit
@@ -79,7 +79,7 @@ class SummaryCell: UITableViewCell, UITableViewRowCell {
 
 `RowTypeTableViewController` is a base implementation which embeds a full screen `UITableView` that comes in the `RowTypeTableView` layer. You can subclass it to define your behaviour but the base usage is to just create a `RowTypeTableViewController` with rows:
 
-```swift=
+```swift
 @objc func openWIPView() {
     let viewModel = SomeViewModel()
     let viewController = RowTypeTableViewController(rows: viewModel.rows)
