@@ -10,6 +10,8 @@ import UIKit
 /// The main view controller implementation that embeds a full screen table view. When using this type, you will need to initialise it with `init(rows:)`, providing the rows in `UITableViewPresentable` format.
 /// To update the table view, set `rows` directly would trigger the table view to refresh, reload data by default. Override the rowsDidChange method if you want to define custom behaviours for refresh.
 open class RowTypeTableViewController: UIViewController {
+    private var registeredCells: Set<String> = []
+
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -20,6 +22,7 @@ open class RowTypeTableViewController: UIViewController {
 
     public var rows: [UITableViewPresentable] = [] {
         didSet {
+            registerCellsIfNeeded()
             rowsDidChange(tableView)
         }
     }
@@ -34,7 +37,6 @@ open class RowTypeTableViewController: UIViewController {
     }
 
     private func setupTableView() {
-        setupRowTypeCells()
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -45,11 +47,15 @@ open class RowTypeTableViewController: UIViewController {
         ])
     }
 
-    private func setupRowTypeCells() {
+    private func registerCellsIfNeeded() {
         rows
             .map(\.CellType)
+            .filter {
+                !registeredCells.contains("\($0.self)")
+            }
             .forEach {
                 tableView.register($0, forCellReuseIdentifier: "\($0.self)")
+                registeredCells.insert("\($0.self)")
             }
     }
 
