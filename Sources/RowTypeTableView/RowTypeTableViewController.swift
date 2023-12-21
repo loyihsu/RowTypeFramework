@@ -12,7 +12,7 @@ import UIKit
 open class RowTypeTableViewController: UIViewController {
     private var registeredCells: Set<String> = []
 
-    lazy var tableView: UITableView = {
+    public lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
