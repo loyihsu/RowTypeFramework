@@ -94,16 +94,20 @@ class SummaryCell: UITableViewCell, UITableViewRowCell {
 
 ### `RowTypeTableViewController`
 
-`RowTypeTableViewController` is a base implementation which embeds a full screen `UITableView` that comes in the `RowTypeTableView` layer. You can subclass it to define your behaviour but the base usage is to just create a `RowTypeTableViewController` with rows:
+`RowTypeTableViewController` is a base implementation which embeds a full screen `UITableView` that comes in the `RowTypeTableView` layer. You can subclass it to define your behaviour.
 
 ```swift
-func navigateToView() {
-    let viewModel = SomeViewModel()
-    let viewController = RowTypeTableViewController(rows: viewModel.rows)
-    viewModel.rowsDidUpdate = { [weak viewController] rows in
-        viewController?.rows = rows
+final class SomeViewController: RowTypeTableViewController {
+    private let viewModel = SomeViewModel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        rows = viewModel.rows
+        viewModel.rowsDidUpdate = { [weak self] in
+            self?.rows = $0
+        }
     }
-    show(viewController, sender: self)
 }
 ```
 
